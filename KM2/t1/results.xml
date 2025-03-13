@@ -1,6 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1741819976" />
-    <testcase name="AND2X1_test" classname="test_modules" file="/home/NEss/yd/учеба/2_sem/comp_tech/Cat/KM2/t1/test_modules.py" lineno="4" time="0.0006263256072998047" sim_time_ns="10.001" ratio_time="15967.732890749903" />
-  </testsuite>
-</testsuites>
