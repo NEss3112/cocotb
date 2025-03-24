@@ -1,20 +1,28 @@
 import cocotb
 from cocotb.triggers import Timer
 
-def model():
-    pass
+def model(A, EN):
+    return A if EN else 'z' 
 
-@cocotb.test(skip=True)
-async def test(dut, A, EN):
+def getBinDigit(num, n):
+    mask = 1 << n
+    maskedNum = num & mask
+    binDigit = maskedNum >> n
+    return binDigit
+
+@cocotb.test()
+async def test(dut):
     """ Testing TBUFX1 cell"""
-    dut.A.value = A
-    dut.EN.value = EN
+    numberOfInputs = 2
+    for num in range(2**numberOfInputs):
+        dut.A.value = getBinDigit(num,1)
+        dut.EN.value = getBinDigit(num,2)
 
     await Timer(10, units="ns")
     result = dut.Y.value
     print("")
     print("Reaction for A = {dut.A.value}, EN = {dut.EN.value} - {result}")
     print("")
-    trueResult = model(A,B)
+    trueResult = model(dut.A.value,dut.EN.value)
     assert result == trueResult, f"{result} is not {trueResult}"
 
